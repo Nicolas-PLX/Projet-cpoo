@@ -8,7 +8,7 @@ public class TestJunit5Demo {
     @Test
     public void testFonctionATester() {
         assertEquals(Junit5Demo.fonctionATester(), 42, "Si ça rate c'est que ça ne retourne pas 42.");
-        assertEquals(Junit5Demo.fonctionATester(), 5, "Si ça rate c'est que ça ne retourne pas 5.");
+        //assertEquals(Junit5Demo.fonctionATester(), 5, "Si ça rate c'est que ça ne retourne pas 5.");
     }
     
 }
