@@ -5,7 +5,7 @@ import java.util.*;
 public class Game {
     private double vitesse;
     private double frequence_bonus;
-    private ArrayList<String> listWord;
+    private Tampon listWord; //Peut être mettre dans une classe joueur plutôt
     // [...] A rajouter éventuellement, en tout cas on passera par un builder comme il est FORTEMENT sous entendu ...
 
     private Game(GameBuilder b){
@@ -24,7 +24,7 @@ public class Game {
     public static class GameBuilder{
         private double vitesse;
         private double frequence_bonus;
-        private ArrayList<String> listWord;
+        private Tampon listWord;
         // [...]
 
         public Game build() throws IllegalArgumentException{
@@ -43,7 +43,7 @@ public class Game {
             return this;
         }
 
-        public GameBuilder listWord(ArrayList<String> liste){
+        public GameBuilder listWord(Tampon liste){
             this.listWord = liste;
             return this;
         }
