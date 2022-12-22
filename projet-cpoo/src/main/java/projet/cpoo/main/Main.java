@@ -32,35 +32,38 @@ public class Main extends Application{
             System.out.println(wg2.getDico()[i]);
         }
         */
-        launch(args);
+        launch(args); //Fonction launch de la classe Application
        
     }
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
+        this.primaryStage.setTitle("Coucou");
 
-        initRootLayout();
+        initRootLayout(); //On va mettre la page de base dans le Stage (JFrame si j'ai bien compris)
 
     }
 
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
+            FXMLLoader loader = new FXMLLoader(); //On charge le fichier fxml, on l'extrait et on le "load" au BorderPane en paramètre du main
             URL url = Main.class.getResource("/test.fxml"); //todo : modifier le chemin du fichier et trouver le bon
             loader.setLocation(url);
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
+            Scene scene = new Scene(rootLayout); //On rajoute la scene contenant le BorderPane d'avant et on l'a met dans la fenêtre
             primaryStage.setScene(scene);
-            primaryStage.show();
+            primaryStage.show(); //On affiche la fenêtre sinon ça marche pas 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    //Dans le cas où il y a un seul layout de base, sinon on peut rajouter plein d'autre layout qui charge chacun un fichier fxml différent
+    //On procède d'apeu près la même façon à chaque fois, juste il faut que ça reste du code "logique" en java, qui compile quoi
+    //Après c'est haut dela de mes capacités en GUI ...
 
     public Stage getPrimaryStage(){
         return primaryStage;
