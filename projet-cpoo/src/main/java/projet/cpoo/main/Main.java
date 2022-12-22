@@ -32,21 +32,37 @@ public class Main extends Application{
             System.out.println(wg2.getDico()[i]);
         }
         */
-        //launch(args);
+        launch(args);
+       
     }
-/*
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Main.class.getResource("src/main/resources/test.fxml"));
-        rootLayout = (BorderPane) loader.load();
 
-        Scene scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("AddressApp");
+
+        initRootLayout();
+
+    }
+
+    public void initRootLayout() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            URL url = Main.class.getResource("/test.fxml"); //todo : modifier le chemin du fichier et trouver le bon
+            loader.setLocation(url);
+            rootLayout = (BorderPane) loader.load();
+            
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Stage getPrimaryStage(){
         return primaryStage;
-    }*/
+    }
 }
