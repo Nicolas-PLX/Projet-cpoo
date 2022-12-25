@@ -32,7 +32,11 @@ public class Main extends Application{
             System.out.println(wg2.getDico()[i]);
         }
         */
-        launch(args); //Fonction launch de la classe Application
+        //launch(args); //Fonction launch de la classe Application
+        Joueur j = new Joueur("test");
+        while(1){
+            j.appuieJoueur(null);
+        }
        
     }
 

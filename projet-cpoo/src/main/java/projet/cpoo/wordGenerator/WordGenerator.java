@@ -8,6 +8,7 @@ import java.util.Random;
 public class WordGenerator {
     private String[] dictionnaire;
 
+
     public WordGenerator(String s){
         String separateur = ", ";
         String[] dictionnaire = s.split(separateur);
