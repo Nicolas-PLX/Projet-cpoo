@@ -24,6 +24,17 @@ public class Tampon {
         this.wg = new WordGenerator(s);
         this.initTampon();
     }
+
+    public ArrayList<String> getTampon(){
+        return this.tampon;
+    }
+
+    public WordGenerator getWordGenerator(){
+        return this.wg;
+    }
+
+
+
     //Va remplir le tampon avec 15 mots aléatoire
     public static Tampon initTamponFromString(String s){
         Tampon res = new Tampon(s);
@@ -40,20 +51,29 @@ public class Tampon {
     }
 
     //Va ajouter un élément dans la liste. On fera une petite vérification de la taille du tampon (facultatif)
-    public void addWord(String s){
-        if (this.tampon.size() < 15){
-            this.tampon.add(s);
-        }
+    public void addWord(){
+        this.tampon.add(wg.generateNewWord());
     }
     //Va retirer le premier élément de la liste (quand on appuis sur espace)
     public void removeWord(){
         this.tampon.remove(0);
     }
+    //Vide le tampon
+    public void resetTampon(){
+        this.tampon.clear();
+    }
+
+    //Change le generateur de mot. On doit également changer le tampon, on le vide et on le ré-initialise.
+    public void changeWordGenerator(String s){
+        this.wg = new WordGenerator(s);
+        this.resetTampon();
+        this.initTampon();
+    }
 
     //On retire le mot. On en ajoute un directement juste après
     public boolean motValide(){
         this.removeWord();
-        this.addWord(this.wg.generateNewWord());
+        this.addWord();
         return true;
     }
 
