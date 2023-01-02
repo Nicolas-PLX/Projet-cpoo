@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Game {
     
-    private double vitesse;
+    private double vitesse; //En seconde : le nombre de seconde qu'il faudra pour ajouter un mot.
     private double frequence_bonus;
     private Timer timer;
     private GameMode gameMode;
@@ -37,12 +37,12 @@ public class Game {
         return gb.build();
     }
 
-    public static Game newGameModeGame(int duration, String pseudo, int speed, int frequence_bonus){
+    public static Game newGameModeGame(String pseudo, int speed, int frequence_bonus){
         GameBuilder gb = Game.builder();
         gb = gb.frequence_bonus(frequence_bonus)
         .gameMode(GameMode.Jeu)
         .vitesse(speed)
-        .timer(new Timer(duration))
+        .timer(null)
         .joueur(new Joueur(pseudo))
         .niveau(1);
         return gb.build();
@@ -63,6 +63,29 @@ public class Game {
         //Il faut absolument que String s soit écrit sous la forme "<mot>, <mot>, etc..." pour que cela marche
     public void modificationBufferWordGenerator(String s){
         this.joueur.getListWord().changeWordGenerator(s);
+    }
+
+        //Change de niveau : il faudra également changer de vitesse 
+    public void changementNiveau(){
+        this.niveau++;
+        this.vitesse = 3 * Math.pow(0.9, this.niveau);
+        this.timer.TimerRestart();
+    }
+
+    //fonction qui va lancer une partie
+    public static void startNewGame(int duration, String pseudo, int speed, int frequence_bonus, GameMode gm){
+        if (gm == GameMode.Jeu){
+            Game game = Game.newGameModeGame(pseudo, speed, frequence_bonus);
+            //TODO a finir : le mode jeu se fini par rapport aux nombres de vie
+            while(game.joueur.getLife() > 0){
+
+            }
+        } else if (gm == GameMode.Normal){
+            Game game = Game.newNormalGame(duration, pseudo);
+            while(game.timer.actualDuration != 0){
+
+            }
+        }
     }
 
     public static class GameBuilder{
@@ -118,6 +141,10 @@ public class Game {
         public boolean verification(){
             if (this.gameMode == GameMode.Normal){
                 if (this.niveau > 0 || this.vitesse > 0 || this.frequence_bonus > 0){
+                    return false;
+                }
+            } else if (this.gameMode == GameMode.Jeu){
+                if (this.timer != null){
                     return false;
                 }
             }

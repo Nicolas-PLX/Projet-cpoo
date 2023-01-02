@@ -20,6 +20,13 @@ public class Timer {
         return false;
     }
 
+    public void TimerRestart(){
+        long time = System.currentTimeMillis();
+        this.startTime = time;
+        this.actualTime = time;
+        this.actualDuration = this.duration;
+    }
+
     //Temporaire : a refaire en fonction de ce que l'on veut en faire réellement
     public void refreshTimer(){
         this.actualTime = System.currentTimeMillis();

@@ -71,10 +71,30 @@ public class Tampon {
     }
 
     //On retire le mot. On en ajoute un directement juste après
-    public boolean motValide(){
+    public void motValide(){
         this.removeWord();
         this.addWord();
-        return true;
+    }
+
+    //Fonction qui va vérifié que le mot est correctement écrit. renvoie le nombre eventuel de fautes, 0 sinon
+    //Devrait prendre un tableau de char, qui stockera les caractères que le joueur écrira pour écrire son mot
+    public int checkMotValide(char[] tc){
+        int compteur_bad_char = 0;
+        for (int i = 0; i < tc.length;i++){
+            if (!checkGoodChar(i, tc[i])){
+                compteur_bad_char++;
+            }
+        }
+        return compteur_bad_char;
+    }
+
+    //Regarde si la lettre tapé est correcte ou non.
+    public boolean checkGoodChar(int index, char c){
+        String s = this.getTampon().get(0);
+        if(s.charAt(index) == c){
+            return true;
+        }
+        return false;
     }
 
     //Fonction a refaire (peut être) pour s'adapter à une interface graphique

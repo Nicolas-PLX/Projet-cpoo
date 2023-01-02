@@ -6,19 +6,22 @@ public class Statistic {
     private int regularity;
     private int goodKey;
     private int falseKey;
+    private int nbrGoodWord;
 
 
     public Statistic(){
-        this.MPM = -1; this.accuracy = -1.0; this.regularity = -1; this.goodKey = 0; this.falseKey = 0;
+        this.MPM = -1; this.accuracy = -1.0; this.regularity = -1; this.goodKey = 0; this.falseKey = 0; this.nbrGoodWord = 0;
     }
 
     public int getMPM(){return this.MPM;}
     public double getAccuracy(){return this.accuracy;}
     public int getRegularity(){return this.regularity;}
+    public int getGoodWord(){return this.nbrGoodWord;}
 
     private void setMPM(int MPM){this.MPM = MPM;}
     private void setAccuracy(double accuracy){this.accuracy = accuracy;}
     private void setRegularity(int regularity){this.regularity = regularity;}
+    private void setnbrGoodWord(int goodWord){this.nbrGoodWord = goodWord;}
 
     public void calculMPM(int numb_min){
         int new_MPM = (this.goodKey / numb_min) / 5;
@@ -36,6 +39,10 @@ public class Statistic {
 
     public void addFalseKey(){
         this.falseKey++;
+    }
+
+    public void addGoodWord(){
+        this.nbrGoodWord++;
     }
     //TODO : calcul de la régularité avec l'écart type entre chaque caractère utile.
     public void calculRegularity(){

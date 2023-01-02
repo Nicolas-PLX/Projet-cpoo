@@ -1,12 +1,12 @@
 package projet.cpoo.game;
 
-import javafx.scene.input.KeyEvent;
 import projet.cpoo.statistic.Statistic;
 
 public class Joueur {
     private String nom;
     private Tampon listWord;
     private Statistic stat;
+    private int life = 10;
 
 
     public Joueur(String nom){
@@ -27,13 +27,19 @@ public class Joueur {
         return this.listWord;
     }
 
+    public int getLife(){
+        return this.life;
+    }
+
+    public void setLife(int nb){
+        this.life = nb;
+    }
+
+    public void addLife(int nb){
+        this.setLife(this.life + nb);
+    }
+
     public void addNewWord(){
         this.listWord.addWord();
     }
-
-    public void appuieJoueur(KeyEvent e){
-        System.out.println("oui");
-    }
-
-
 }
