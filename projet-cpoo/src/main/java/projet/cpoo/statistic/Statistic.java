@@ -17,6 +17,8 @@ public class Statistic {
     public double getAccuracy(){return this.accuracy;}
     public int getRegularity(){return this.regularity;}
     public int getGoodWord(){return this.nbrGoodWord;}
+    public int getGoodKey(){return this.goodKey;}
+    public int getFalseKey(){return this.falseKey;}
 
     private void setMPM(int MPM){this.MPM = MPM;}
     private void setAccuracy(double accuracy){this.accuracy = accuracy;}
@@ -33,12 +35,12 @@ public class Statistic {
         this.setAccuracy(new_acc);
     }
 
-    public void addGoodkey(){
-        this.goodKey++;
+    public void addGoodkey(int nb){
+        this.goodKey += nb;
     }
 
-    public void addFalseKey(){
-        this.falseKey++;
+    public void addFalseKey(int nb){
+        this.falseKey += nb;
     }
 
     public void addGoodWord(){
@@ -47,6 +49,13 @@ public class Statistic {
     //TODO : calcul de la régularité avec l'écart type entre chaque caractère utile.
     public void calculRegularity(){
         
+    }
+
+    public void ajoutStatsValidation(char[] tc,int nb){
+        this.addFalseKey(nb);
+        this.addGoodkey(tc.length-nb);
+        if (nb == 0){this.addGoodWord();}
+        this.accuracy = (this.goodKey / (this.goodKey + this.falseKey)) * 100;
     }
 
     

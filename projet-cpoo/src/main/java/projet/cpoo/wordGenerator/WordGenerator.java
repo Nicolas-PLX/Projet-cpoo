@@ -40,11 +40,12 @@ public class WordGenerator {
         File file = new File("src/main/resources/ListeMotBasique");
         FileReader reader = new FileReader(file);
         BufferedReader buffer = new BufferedReader(reader);
-        String ligne = buffer.readLine(); String res = "";
+        String ligne = buffer.readLine(); String res = ligne;
+        System.out.println(ligne);
         while((ligne = buffer.readLine()) != null){
-            System.out.println("ligne = " + ligne);
-            res = ", " + res + ", " + ligne;
+            res = res + ", " + ligne;
         }
+        System.out.println(res);
         buffer.close();
         return new WordGenerator(res);
     }

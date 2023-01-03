@@ -6,17 +6,16 @@ public class Game {
     
     private double vitesse; //En seconde : le nombre de seconde qu'il faudra pour ajouter un mot.
     private double frequence_bonus;
-    private Timer timer;
+    //private Timer timer;
     private GameMode gameMode;
     private int niveau;
     private Joueur joueur;
         // [...] A rajouter éventuellement, en tout cas on passera par un builder comme il est FORTEMENT sous entendu ...
 
-
     private Game(GameBuilder b){
         this.vitesse = b.vitesse;
         this.frequence_bonus = b.frequence_bonus;
-        this.timer = b.timer;
+        //this.timer = b.timer;
         this.gameMode = b.gameMode;
         this.niveau = b.niveau;
         this.joueur = b.joueur;
@@ -25,13 +24,20 @@ public class Game {
     public static GameBuilder builder(){
         return new GameBuilder();
     }
+    public Joueur getJoueur(){
+        return this.joueur;
+    }
+
+    public GameMode getGameMode(){
+        return this.gameMode;
+    }
 
     public static Game newNormalGame(int duration, String pseudo){
         GameBuilder gb = Game.builder();
         gb = gb.frequence_bonus(0)
         .gameMode(GameMode.Normal)
         .vitesse(0)
-        .timer(new Timer(duration))
+        //.timer(new Timer(duration))
         .joueur(new Joueur(pseudo))
         .niveau(0);
         return gb.build();
@@ -42,7 +48,7 @@ public class Game {
         gb = gb.frequence_bonus(frequence_bonus)
         .gameMode(GameMode.Jeu)
         .vitesse(speed)
-        .timer(null)
+        //.timer(null)
         .joueur(new Joueur(pseudo))
         .niveau(1);
         return gb.build();
@@ -67,10 +73,25 @@ public class Game {
 
         //Change de niveau : il faudra également changer de vitesse 
     public void changementNiveau(){
+        if (this.gameMode == GameMode.Normal){return;}
         this.niveau++;
         this.vitesse = 3 * Math.pow(0.9, this.niveau);
-        this.timer.TimerRestart();
+        //this.timer.TimerRestart();
     }
+
+    //Fonction qui va validé un mot, si on est dans le mode jeu alors on va retirer des vies également
+    public void validationWord(char[] tc){
+        int nb = this.joueur.getListWord().checkMotValide(tc);
+        this.joueur.ajoutStatsValidation(tc,nb);
+        if (this.gameMode == GameMode.Jeu){
+            this.joueur.changeLife(Math.negateExact(nb));
+            System.out.println("je vais ici");
+            this.joueur.getListWord().motValideGame();
+        } else {
+            this.joueur.getListWord().motValideNormal();
+        }
+    }
+
 
     //fonction qui va lancer une partie
     public static void startNewGame(int duration, String pseudo, int speed, int frequence_bonus, GameMode gm){
@@ -82,16 +103,16 @@ public class Game {
             }
         } else if (gm == GameMode.Normal){
             Game game = Game.newNormalGame(duration, pseudo);
-            while(game.timer.actualDuration != 0){
+            //while(game.timer.actualDuration != 0){
 
-            }
+            //}
         }
     }
 
     public static class GameBuilder{
         private double vitesse;
         private double frequence_bonus;
-        private Timer timer;
+        //private Timer timer;
         private GameMode gameMode;
         private int niveau;
         private Joueur joueur;
@@ -123,12 +144,11 @@ public class Game {
             this.gameMode = gm;
             return this;
         }
-
+        /*
         public GameBuilder timer(Timer t){
             this.timer = t;
             return this;
-        }
-
+        }*/
 
         public GameBuilder niveau(int n){
             this.niveau = n;
@@ -144,9 +164,9 @@ public class Game {
                     return false;
                 }
             } else if (this.gameMode == GameMode.Jeu){
-                if (this.timer != null){
+                //if (this.timer != null){
                     return false;
-                }
+                //}
             }
             return true;
         }

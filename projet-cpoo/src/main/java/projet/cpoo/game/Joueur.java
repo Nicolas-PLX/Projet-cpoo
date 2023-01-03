@@ -31,15 +31,20 @@ public class Joueur {
         return this.life;
     }
 
-    public void setLife(int nb){
+    private void setLife(int nb){
         this.life = nb;
     }
 
-    public void addLife(int nb){
+    public void changeLife(int nb){
         this.setLife(this.life + nb);
     }
 
     public void addNewWord(){
         this.listWord.addWord();
+    }
+
+    //Ajout aux statistiques les valeurs après avoir modifié un mot
+    public void ajoutStatsValidation(char[]tc,int nb){
+        this.stat.ajoutStatsValidation(tc,nb);
     }
 }

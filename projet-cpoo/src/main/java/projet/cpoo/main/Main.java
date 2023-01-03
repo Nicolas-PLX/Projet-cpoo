@@ -17,29 +17,36 @@ import projet.cpoo.statistic.Statistic;
 import projet.cpoo.wordGenerator.WordGenerator;
 
 
-public class Main extends Application{
+public class Main /*extends Application*/{
 
     private Stage primaryStage;
     private BorderPane rootLayout;
 
     
     public static void main(String[] args) throws IOException{
-        /*/
-        WordGenerator wg = new WordGenerator("test, oui");
-        System.out.println(wg.generateNewWord());
-        WordGenerator wg2 = WordGenerator.generatorFromFile();
-        for (int i = 0; i < wg2.getDicoLength();i++){
-            System.out.println(wg2.getDico()[i]);
-        }
-        */
         //launch(args); //Fonction launch de la classe Application
-        Joueur j = new Joueur("test");
-        while(1){
-            j.appuieJoueur(null);
-        }
-       
-    }
+        Game g = Game.newNormalGame(0, "test");
+        Joueur j = g.getJoueur();
+        //System.out.println(j.getNom());
+        //System.out.println(j.getListWord().affichage_first_words());
+        System.out.println(j.getListWord().getWordGenerator().generateNewWord());
+        System.out.println(j.getListWord().getTampon().toString());
+        String s = j.getListWord().getTampon().get(0);
+        System.out.println(j.getListWord().getTampon().toString());
 
+        char[] tc = new char[s.length()];
+        for ( int i = 0 ;i < tc.length;i++){
+            tc[i] = s.charAt(i);
+        }
+        g.validationWord(tc);
+        System.out.println(g.getGameMode());
+        System.out.println(j.getListWord().getTampon().toString());
+        System.out.println(j.getStat().getAccuracy());
+        System.out.println(j.getStat().getGoodWord());
+        System.out.println(j.getStat().getGoodKey());
+        System.out.println(j.getStat().getFalseKey());
+        }
+    /*
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -71,5 +78,5 @@ public class Main extends Application{
 
     public Stage getPrimaryStage(){
         return primaryStage;
-    }
+    }*/
 }

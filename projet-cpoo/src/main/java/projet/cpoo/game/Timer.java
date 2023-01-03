@@ -1,6 +1,6 @@
 package projet.cpoo.game;
 
-public class Timer {
+/*public class Timer {
     private long startTime;
     private long actualTime;
     public int actualDuration;
@@ -34,4 +34,4 @@ public class Timer {
             this.actualDuration--;
         }
     }
-}
+}*/

@@ -71,9 +71,13 @@ public class Tampon {
     }
 
     //On retire le mot. On en ajoute un directement juste après
-    public void motValide(){
+    public void motValideNormal(){
         this.removeWord();
         this.addWord();
+    }
+
+    public void motValideGame(){
+        this.removeWord();
     }
 
     //Fonction qui va vérifié que le mot est correctement écrit. renvoie le nombre eventuel de fautes, 0 sinon
