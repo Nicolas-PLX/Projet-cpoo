@@ -1,20 +1,15 @@
 package projet.cpoo.main;
 
 import java.io.*;
-import java.net.URL;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import org.checkerframework.common.reflection.qual.GetClass;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.*;
 
 import projet.cpoo.game.*;
-import projet.cpoo.statistic.Statistic;
-import projet.cpoo.wordGenerator.WordGenerator;
 
 
 public class Main /*extends Application*/{
@@ -25,7 +20,7 @@ public class Main /*extends Application*/{
     
     public static void main(String[] args) throws IOException{
         //launch(args); //Fonction launch de la classe Application
-        Game g = Game.newNormalGame(0, "test");
+        Game g = Game.newNormalGame(0, "test",100);
         Joueur j = g.getJoueur();
         //System.out.println(j.getNom());
         //System.out.println(j.getListWord().affichage_first_words());
@@ -37,15 +32,20 @@ public class Main /*extends Application*/{
         char[] tc = new char[s.length()];
         for ( int i = 0 ;i < tc.length;i++){
             tc[i] = s.charAt(i);
+            tc[0] = '(';
         }
         g.validationWord(tc);
         System.out.println(g.getGameMode());
         System.out.println(j.getListWord().getTampon().toString());
-        System.out.println(j.getStat().getAccuracy());
         System.out.println(j.getStat().getGoodWord());
         System.out.println(j.getStat().getGoodKey());
         System.out.println(j.getStat().getFalseKey());
-        }
+        System.out.println(j.getStat().getAccuracy());
+
+
+        Timer chrono = new Timer();
+        
+        Game.startNewGame(60, 0, "test", 0, 0, GameMode.Normal);
     /*
     @Override
     public void start(Stage primaryStage) {
@@ -79,4 +79,5 @@ public class Main /*extends Application*/{
     public Stage getPrimaryStage(){
         return primaryStage;
     }*/
+    }
 }

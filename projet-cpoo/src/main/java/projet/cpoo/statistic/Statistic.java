@@ -55,7 +55,7 @@ public class Statistic {
         this.addFalseKey(nb);
         this.addGoodkey(tc.length-nb);
         if (nb == 0){this.addGoodWord();}
-        this.accuracy = (this.goodKey / (this.goodKey + this.falseKey)) * 100;
+        this.accuracy = ((this.goodKey * 100) / (this.goodKey + this.falseKey));
     }
 
     
