@@ -48,7 +48,8 @@ tasks.named('run') {
     group = "Execution"
     description = "Description"
     classpath = sourceSets.main.runtimeClasspath
-    main = 'projet.cpoo.main.Main'
+    //main = 'projet.cpoo.main.Main'
+    main = 'projet.cpoo.main.App'
     standardInput = System.in
 }
 /*

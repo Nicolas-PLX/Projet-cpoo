@@ -57,16 +57,6 @@ public class Game {
     }
 
 
-    public void addNewWord(){
-        if (this.gameMode == GameMode.Normal){
-            if (this.joueur.getListWord().getTampon().size() < 15){
-                this.joueur.addNewWord();
-
-            }
-        } else {
-
-        }
-    }
         //Fonction qui permet de modifier le buffer de mot (a lié avec la partie du GUI)
         //Il faut absolument que String s soit écrit sous la forme "<mot>, <mot>, etc..." pour que cela marche
     public void modificationBufferWordGenerator(String s){
@@ -97,6 +87,7 @@ public class Game {
             this.joueur.getListWord().motValideNormal();
         }
     }
+
 
 
     //fonction qui va lancer une partie
