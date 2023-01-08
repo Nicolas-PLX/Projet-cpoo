@@ -16,7 +16,7 @@
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="game_option_pane" layoutX="76.0" prefHeight="400.0" prefWidth="449.0">
+            <Pane fx:id="game_option_pane" layoutX="76.0" prefHeight="400.0" prefWidth="449.0" visible="false">
                <children>
                   <TextField fx:id="option_time" layoutX="25.0" layoutY="177.0" prefHeight="39.0" prefWidth="175.0" styleClass="text_zone" stylesheets="@basic.css" />
                   <TextField fx:id="option_number_word" layoutX="239.0" layoutY="176.0" prefHeight="39.0" prefWidth="180.0" styleClass="text_zone" stylesheets="@basic.css" />
@@ -60,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="game_pane" layoutX="80.0" layoutY="10.0" prefHeight="381.0" prefWidth="441.0" visible="false">
+            <Pane fx:id="game_pane" layoutX="80.0" layoutY="10.0" prefHeight="381.0" prefWidth="441.0">
                <children>
                   <TextField fx:id="mot_ecrit" alignment="CENTER" layoutX="94.0" layoutY="305.0" onKeyTyped="#checkKey" prefHeight="49.0" prefWidth="332.0" promptText="Taper ici" styleClass="text_zone" stylesheets="@basic.css">
                      <font>
@@ -68,30 +68,40 @@
                      </font>
                   </TextField>
                   <TextArea fx:id="liste_mots" editable="false" layoutX="15.0" layoutY="71.0" prefHeight="211.0" prefWidth="412.0" wrapText="true" />
-                  <Text fill="#defbff" layoutX="7.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer : ">
+                  <Text fill="#defbff" layoutX="23.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vie :">
                      <font>
                         <Font name="Comic Sans MS" size="21.0" />
                      </font>
                   </Text>
-                  <Label fx:id="timer" alignment="CENTER" layoutX="84.0" layoutY="16.0" text="0" textFill="#defbff">
+                  <Label fx:id="vie" alignment="CENTER" layoutX="84.0" layoutY="16.0" text="0" textFill="#defbff">
                      <font>
                         <Font name="Comic Sans MS" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="nombre_mot_restant" layoutX="392.0" layoutY="15.0" text="0" textFill="#defbff">
+                  <Label fx:id="nombre_mot_actuel" layoutX="392.0" layoutY="15.0" text="0" textFill="#defbff">
                      <font>
                         <Font name="Comic Sans MS" size="19.0" />
                      </font>
                   </Label>
-                  <Text fill="#defbff" layoutX="160.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de mot restant : ">
+                  <Text fill="#defbff" layoutX="313.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mots :">
                      <font>
                         <Font name="Comic Sans MS" size="19.0" />
                      </font>
                   </Text>
-                  <Button fx:id="start" layoutX="23.0" layoutY="308.0" mnemonicParsing="false" onAction="#startGame" prefHeight="48.0" prefWidth="65.0" styleClass="start" stylesheets="@basic.css" text="Start">
+                  <Button fx:id="start" layoutX="15.0" layoutY="305.0" mnemonicParsing="false" onAction="#startGame" prefHeight="48.0" prefWidth="73.0" styleClass="start" stylesheets="@basic.css" text="Start">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font></Button>
+                  <Label fx:id="niveau" layoutX="248.0" layoutY="15.0" text="0" textFill="#defbff">
+                     <font>
+                        <Font name="Comic Sans MS" size="19.0" />
+                     </font>
+                  </Label>
+                  <Text fill="#defbff" layoutX="156.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Niveau :">
+                     <font>
+                        <Font name="Comic Sans MS" size="19.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </children>

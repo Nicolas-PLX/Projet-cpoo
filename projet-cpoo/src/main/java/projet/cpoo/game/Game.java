@@ -26,6 +26,7 @@ public class Game {
     public static GameBuilder builder(){
         return new GameBuilder();
     }
+    /* Getter et Setter */
     public Joueur getJoueur(){
         return this.joueur;
     }
@@ -46,6 +47,10 @@ public class Game {
         return this.nbWord;
     }
 
+    public int getNiveau(){
+        return this.niveau;
+    }
+
     public void addNbWord(){
         this.nbWord++;
     }
@@ -54,7 +59,20 @@ public class Game {
         this.nbWord--;
     }
 
-    public static Game newNormalGame(int duration, String pseudo, int nbWord){
+    /**
+     * Remet le nombre de mot que le joueur doit écrire à 0.
+     */
+    public void resetNbrWord(){
+        this.joueur.getStat().getnbrWord();
+    }
+    /**
+     *  Ces fonctions ne sont plus à jour. Servait a créer des parties toute faite.
+     * @param duration temps de la partie
+     * @param pseudo   pseudo du joueur
+     * @param nbWord   nombre de mot
+     * @return
+     */
+    private Game newNormalGame(int duration, String pseudo, int nbWord){
         GameBuilder gb = Game.builder();
         gb = gb.frequence_bonus(0)
         .gameMode(GameMode.Normal)
@@ -65,7 +83,7 @@ public class Game {
         return gb.build();
     }
 
-    public static Game newGameModeGame(String pseudo, int speed, int frequence_bonus){
+    public Game newGameModeGame(String pseudo, int speed, int frequence_bonus){
         GameBuilder gb = Game.builder();
         gb = gb.frequence_bonus(frequence_bonus)
         .gameMode(GameMode.Jeu)
@@ -77,7 +95,7 @@ public class Game {
 
 
         //Fonction qui permet de modifier le buffer de mot (a lié avec la partie du GUI)
-        //Il faut absolument que String s soit écrit sous la forme "<mot>, <mot>, etc..." pour que cela marche
+        // @params Il faut absolument que String s soit écrit sous la forme "<mot>, <mot>, etc..." pour que cela marche
     public void modificationBufferWordGenerator(String s){
         this.joueur.getListWord().changeWordGenerator(s);
     }
@@ -90,7 +108,10 @@ public class Game {
     }
 
 
-    //Fonction qui va validé un mot, si on est dans le mode jeu alors on va retirer des vies également
+    /**
+     * Fonction qui va validé un mot, si on est dans le mode jeu alors on va retirer des vies également
+     * @params mot qu'on valide
+    **/
     public void validationWord(String tc){
         int nb = this.joueur.getListWord().checkMotValide(tc);
         this.joueur.ajoutStatsValidation(tc,nb);
@@ -101,9 +122,11 @@ public class Game {
             this.joueur.getListWord().motValideNormal();
         }
     }    
+    
+    /* Builder */
 
     public static class GameBuilder{
-        private double vitesse;
+        private double vitesse = 3;
         private double frequence_bonus;
         private GameMode gameMode;
         private int niveau = 1;
@@ -111,7 +134,7 @@ public class Game {
         private int nbWordToWrite;
         private boolean withTimer;
 
-        // [...]
+        
 
         public Game build() throws IllegalArgumentException{
             if (this.verification()){
@@ -160,7 +183,7 @@ public class Game {
         //TODO : Fonction qui va vérifier si les paramètres sont adéquat.
         public boolean verification(){
             if (this.gameMode == GameMode.Normal){
-                if (this.niveau > 1 || this.vitesse > 0 || this.frequence_bonus > 0){
+                if (this.niveau > 1  || this.frequence_bonus > 0){
                     return false;
                 }
             } else if (this.gameMode == GameMode.Jeu){

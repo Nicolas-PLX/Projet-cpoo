@@ -18,7 +18,7 @@ public class Tampon {
         }
         this.initTampon();
     }
-
+ /* Getter et Setter */
     public Tampon(String s){
         this.tampon = new ArrayList<String>();
         this.wg = new WordGenerator(s);
@@ -43,7 +43,9 @@ public class Tampon {
         }
         return res;
     }
-    //Va remplir le tampon
+    /**
+     * Remplis le tampon de 15 mots 
+     */
     public void initTampon(){
         for (int i = 0; i < 15;i++){
             this.tampon.add(this.wg.generateNewWord());
@@ -75,7 +77,10 @@ public class Tampon {
         this.removeWord();
         this.addWord();
     }
-
+    /**
+     * Pour le mode Jeu, va vérifier si le tampon est à la moitié de sa taille d'origine après validation
+     * Rajoute un mot si c'est le cas
+     */
     public void motValideGame(){
         this.removeWord();
         if (this.tampon.size() < 7){
@@ -87,6 +92,10 @@ public class Tampon {
     //Devrait prendre un tableau de char, qui stockera les caractères que le joueur écrira pour écrire son mot
     public int checkMotValide(String s){
         int compteur_bad_char = 0;
+        String head = this.getTampon().get(0);
+        if (head.length() > s.length()){
+            compteur_bad_char = head.length() - s.length();
+        }
         for (int i = 0; i < s.length();i++){
             if (!checkGoodChar(i, s.charAt(i))){
                 compteur_bad_char++;
@@ -105,11 +114,13 @@ public class Tampon {
         return false;
     }
 
-    //Fonction a refaire (peut être) pour s'adapter à une interface graphique
-    
+    /**
+     * affiche les mots du tampon
+     * @return La string correspondant au mot dans le tampon
+     */    
     public String affichage_first_words(){
         String res = "";
-        for (int i = 0; i < 15;i++){
+        for (int i = 0; i < this.tampon.size();i++){
             res += this.tampon.get(i) + " ";
         }
         return res;

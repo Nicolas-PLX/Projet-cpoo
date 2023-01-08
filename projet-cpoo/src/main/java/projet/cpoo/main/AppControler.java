@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 
+import org.fxmisc.richtext.event.MouseStationaryEvent;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,6 +26,8 @@ import projet.cpoo.game.GameMode;
 public final class AppControler {
 
     public final int max_pseudo_size = 20;
+
+    private static String gameplay;
     
     private static Model model = new Model();
     @FXML
@@ -47,6 +51,15 @@ public final class AppControler {
     @FXML
     private Label nombre_mot_restant; // Affiche le nombre de mot restant à taper
 
+    @FXML
+    private Label vie;
+
+    @FXML
+    private Label nombre_mot_actuel;
+
+    @FXML
+    private Label niveau;
+
     @FXML 
     private Button start; //bouton start
 
@@ -68,7 +81,12 @@ public final class AppControler {
     @FXML
     /* Affiche le menu du jeu */
     protected void showMenu(ActionEvent event) throws IOException {
-        App.changeStage((Node) event.getSource(), "/Menu.fxml");
+        String SE = System.getProperty("os.name".toLowerCase()).substring(0, 3);
+        if(SE.indexOf("Win") >= 0){
+            App.changeStage((Node) event.getSource(), "/Menu.fxml");
+        } else {
+            App.changeStage((Node) event.getSource(), "Menu.fxml");
+        }
     }
 
     /* Affiche la selection du mode de la partie */
@@ -85,19 +103,35 @@ public final class AppControler {
     }
 
     @FXML
-    /*permet l'utilisation du bouton start (lance la partie)*/
+    /**
+     * permet l'utilisation du bouton start (lance la partie)
+     * @param event quand le bouton start est pressé
+     * */
     protected void startGame(ActionEvent event){
-        timer.setText(Integer.toString(model.getTimeRemaining()));
         String s = AppControler.model.printTampon();
         liste_mots.setText(s);
-        if (model.getGameMode() == GameMode.Normal){
-            if (model.getWithTimer()){
-                model.startTimer();
-            } else {
-                int nb_word = model.getNbWord();
-                nombre_mot_restant.setText(Integer.toString(nb_word));
+        mot_ecrit.setEditable(true);
+
+        if (model.getGameMode() == GameMode.Jeu){
+            vie.setText(Integer.toString(model.getLifePlayer()));
+            niveau.setText(Integer.toString(model.getNiveau()));
+            nombre_mot_actuel.setText(Integer.toString(model.getMotEcrit()));
+            long time = System.currentTimeMillis();
+            model.setPassedTime(time);
+            model.resetLife();
+        
+        } else {
+
+            timer.setText(Integer.toString(model.getTimeRemaining()));
+            if (model.getGameMode() == GameMode.Normal){
+                if (model.getWithTimer()){
+                    model.startTimer();
+                } else {
+                }
             }
         }
+        model.resetStat();    
+
     }
 
     protected String getPseudo(){
@@ -107,14 +141,36 @@ public final class AppControler {
     @FXML
     /* Si on lance tout seul */
     protected void soloMode(ActionEvent event) throws IOException {
-        this.model.newGameSolo(GameMode.Normal, getPseudo(),60,0,true);
-        System.out.println(this.model.printTampon());
-        startGame(event, "/SoloGame.fxml");
+        if (AppControler.gameplay == "Normal"){
+            model.newGameSolo(GameMode.Normal, getPseudo(),60,0,true);
+            String SE = System.getProperty("os.name".toLowerCase()).substring(0, 3);
+            if(SE.indexOf("Win") >= 0){
+                startGame(event, "/SoloGame.fxml");
+            }else {
+                startGame(event, "SoloGame.fxml");
+            }
+        } else if(AppControler.gameplay == "Challenge"){
+            model.newGameSolo(GameMode.Jeu, getPseudo(), 0, 0, false);
+            String SE = System.getProperty("os.name".toLowerCase()).substring(0, 3);
+            if(SE.indexOf("Win") >= 0){
+                startGame(event, "/SoloGameChallenge.fxml");
+            }else {
+                startGame(event, "SoloGameChallenge.fxml");
+            }
+        }
+       
     }
 
     @FXML
-    /*change d'affichage après avoir choisi les options */
+    /**change d'affichage après avoir choisi les options. vérifie les options si elles sont valable
+     * @param event action de clique après avoir remplis les options
+    */
     protected void changePane(ActionEvent event) {
+        if (AppControler.gameplay == "Challenge"){
+            game_option_pane.setVisible(false);
+            game_pane.setVisible(true);
+            return;
+        }
         if ((option_number_word.getText().length() > 0) || (option_time.getText().length() > 0)){
             boolean b = true; int nb = 0; int duration = 60;
             if(option_time.getText().length() == 0){
@@ -164,6 +220,7 @@ public final class AppControler {
     protected void startNormalGame(ActionEvent event) throws IOException {
         /* TODO : Mettre en paramètre quelque part qu'on lance une game normal */
         showGameSelection(event);
+        AppControler.gameplay = "Normal";
     }
 
     @FXML
@@ -171,51 +228,69 @@ public final class AppControler {
     protected void startChallenge(ActionEvent event) throws IOException {
         /* TODO : Mettre en paramètre quelque part qu'on lance une game normal */
         showGameSelection(event);
+        AppControler.gameplay = "Challenge";
     }
 
     private void clearWord(){
         mot_ecrit.setText("");
     }
 
-    private void showStat() {
-        mot_ecrit.setText("null");
-        mot_ecrit.setEditable(false);
-    }
 
     @FXML
-    /* Vérifie chaque charactère écrit et + encore */
+    /**
+     *  A chaque caractère pressé par le joueur, la fonction vérifie 
+     * - si le jeu n'est pas terminé
+     * - si c'est un espace, va valider le mot
+     * - vérifie si il faut rajouter un mot pour le mode Jeu
+     * */
     protected void checkKey(KeyEvent event) throws IOException {
-        if (model.checkEndGame()){
+        if (model.checkEndGame()){ //Vérifie si la partie n'est pas terminé
             clearWord();
             model.ajoutStatFinal();
             mot_ecrit.setEditable(false);
             liste_mots.setText(model.printStats());
         } else {
-            long time = System.currentTimeMillis();
-            model.changementEcartType(time);
-            if (model.getGameMode() == GameMode.Jeu){
+            long time = System.currentTimeMillis();     //Va prendre le temps ou la fonction est appelé (quand le joueur presse une touche)
+            model.changementEcartType(time);            //Le rajoute dans le Stack pour l'écart type
+            if (model.getGameMode() == GameMode.Jeu){       //Pour le mode jeu, va vérifier s'il faut rajouter un mot
                 long passedTime = model.getPassedTime();
-                if ((passedTime - time) / 1000 >= model.getVitesse()){
+                double diffTime = (double)(time - passedTime) / 1000.0;
+                if (diffTime >= model.getVitesse()){
                     model.ajoutWordGameModeChallenge(mot_ecrit.getText());
-                    model.setPassedTime(passedTime - time);
+                    model.setPassedTime(time);
+                }
+                if (model.getMotEcrit() >= 100 * model.getNiveau()){ // vérifie s'il ne faut pas changer de niveau également
+                    model.changementNiveau();
                 }
             }
-            String s = "|" + AppControler.model.printTampon();
-            liste_mots.setText(s);
-            if(event.getCharacter().compareTo(" ") == 0) {
+            String s = "|" + AppControler.model.printTampon(); 
+            liste_mots.setText(s);  //Met à jour la liste de mots
+            if(event.getCharacter().compareTo(" ") == 0) { //Valide le mot si besoin
                 String mot = mot_ecrit.getText();
                 AppControler.model.ValidationMot(mot.substring(0, mot.length()-1));
                 refresh_Affichage();
                 clearWord();
-            } 
+            } else { //Si ce n'est pas un espace, rafrachit l'écran
+                refresh_Affichage();
+            }
     }
     }
-
+    /**
+     * Fonction qui va rafraichir l'écran, en mettant à jour le tampon, le timer, le nombre de vies, le nombre de mots ...
+     */
     protected void refresh_Affichage(){
         String s = "|" + AppControler.model.printTampon();
         liste_mots.setText(s);
-        nombre_mot_restant.setText(Integer.toString(model.getNbWord()));
-        timer.setText(Integer.toString(model.getTimeRemaining()));
+        if (model.getGameMode() == GameMode.Normal){
+            nombre_mot_restant.setText(Integer.toString(model.getNbWord()));
+            timer.setText(Integer.toString(model.getTimeRemaining()));
+
+        } else {
+            vie.setText(Integer.toString(model.getLifePlayer()));
+            niveau.setText(Integer.toString(model.getNiveau()));
+            nombre_mot_actuel.setText(Integer.toString(model.getMotEcrit()));
+        }
+        
     }
 
     @FXML

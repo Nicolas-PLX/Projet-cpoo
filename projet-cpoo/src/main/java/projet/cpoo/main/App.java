@@ -24,12 +24,22 @@ public final class App extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         primaryStage.setTitle("DactyloGame");
-        
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(App.class.getResource("/WelcomeScreen.fxml"));
+        String SE = System.getProperty("os.name".toLowerCase()).substring(0, 3);
+        if(SE.indexOf("Win") >= 0){
+            loader.setLocation(App.class.getResource("/WelcomeScreen.fxml"));
+        }else {
+            loader.setLocation(App.class.getResource("WelcomeScreen.fxml"));
+
+        }
         BorderPane rootLayout = loader.load();
         Scene scene = new Scene(rootLayout);
-        scene.getStylesheets().add(App.class.getResource("/basic.css").toExternalForm());
+        if(SE.indexOf("Win") >= 0){
+            scene.getStylesheets().add(App.class.getResource("/basic.css").toExternalForm());
+        } else {
+            scene.getStylesheets().add(App.class.getResource("basic.css").toExternalForm());
+        }
+
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -38,7 +48,12 @@ public final class App extends Application {
     protected static void changeStage(Node node, String filepath) throws IOException {
         Parent parent = FXMLLoader.load(App.class.getResource(filepath));
         Scene scene = new Scene(parent);
-        scene.getStylesheets().add(App.class.getResource("/basic.css").toExternalForm());
+        String SE = System.getProperty("os.name".toLowerCase()).substring(0, 3);
+        if(SE.indexOf("Win") >= 0){
+            scene.getStylesheets().add(App.class.getResource("/basic.css").toExternalForm());
+        } else {
+            scene.getStylesheets().add(App.class.getResource("basic.css").toExternalForm());
+        }
         primaryStage = (Stage) node.getScene().getWindow();
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -52,9 +67,6 @@ public final class App extends Application {
     
     public static void main(String[] args) throws IOException{
         launch(args);
-       Game g = Game.newGameModeGame("pio", 1, 1);
-       //System.out.println("blabla".compareTo("blibli"))
-       
 
     }
 }

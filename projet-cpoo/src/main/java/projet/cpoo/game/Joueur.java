@@ -6,7 +6,8 @@ public class Joueur {
     private String nom;
     private Tampon listWord;
     private Statistic stat;
-    private int life = 10;
+    private int life = 30;
+    private int ogLife;
     private long tempsDernierChar;
     
 
@@ -15,7 +16,9 @@ public class Joueur {
         this.nom = nom;
         this.listWord = new Tampon();
         this.stat = new Statistic();
+        this.ogLife = life;
     }
+    /* Getter et Setter */
 
     public Statistic getStat(){
         return this.stat;
@@ -41,6 +44,10 @@ public class Joueur {
         this.setLife(this.life + nb);
     }
 
+    public void resetLife(){
+        this.setLife(ogLife);
+    }
+
     public void addNewWord(){
         this.listWord.addWord();
     }
@@ -52,6 +59,7 @@ public class Joueur {
     public long getLastTime(){
         return this.tempsDernierChar;
     }
+
 
     //Ajout aux statistiques les valeurs après avoir modifié un mot
     public void ajoutStatsValidation(String tc,int nb){

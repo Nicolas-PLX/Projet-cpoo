@@ -1,9 +1,10 @@
 package projet.cpoo.statistic;
 
 import java.util.Stack;
+import java.util.function.DoubleToIntFunction;
 
 public class Statistic {
-    private int MPM;
+    private double MPM;
     private double accuracy;
     private double regularity;
     private int goodKey;
@@ -16,31 +17,43 @@ public class Statistic {
     public Statistic(){
         this.MPM = -1; this.accuracy = -1.0; this.regularity = -1; this.goodKey = 0; this.falseKey = 0; this.nbrGoodWord = 0; this.nbrWord = 0;
     }
-
-    public int getMPM(){return this.MPM;}
+    /* Setter et getter */
+    public double getMPM(){return this.MPM;}
     public double getAccuracy(){return this.accuracy;}
     public double getRegularity(){return this.regularity;}
     public int getGoodWord(){return this.nbrGoodWord;}
     public int getGoodKey(){return this.goodKey;}
     public int getFalseKey(){return this.falseKey;}
+    public int  getnbrWord(){return this.nbrWord;}
 
-    private void setMPM(int MPM){this.MPM = MPM;}
+    private void setMPM(double MPM){this.MPM = MPM;}
     private void setAccuracy(double accuracy){this.accuracy = accuracy;}
     private void setRegularity(double regularity){this.regularity = regularity;}
     private void setnbrGoodWord(int goodWord){this.nbrGoodWord = goodWord;}
 
+    /**
+     * Calcul le MPM
+     * @param numb_min nombre de mminutes
+     */
     public void calculMPM(int numb_min){
-        int new_MPM = (this.goodKey / numb_min) / 6;
+        double min = (double)numb_min / 60;
+        double new_MPM = ((double)this.goodKey / min) / 5.0;
         this.setMPM(new_MPM);
     }
-
+    /**
+     * Calcul la précision
+     */
     public void calculAccuracy(){
         double new_acc = (this.goodKey / (goodKey + falseKey)) * 100;
         this.setAccuracy(new_acc);
     }
 
+    /*
+     * Calcul la régularité. Formule mathématique pour calculer l'écart type
+     */
     public void calculRegularity(){
         int somme = 0; int size = this.stackList.size();
+        if (size == 0){return;}
         Stack<Long> copy = new Stack<Long>();
         while(!this.stackList.empty()){
             long pop = (this.stackList.pop()) / 1000;
@@ -73,6 +86,7 @@ public class Statistic {
         this.stackList.add(l);
     }
 
+    /* Modifie les statistiques */
     public void ajoutStatsValidation(String tc,int nb){
         this.addFalseKey(nb);
         this.addGoodkey(tc.length()-nb);
@@ -81,9 +95,16 @@ public class Statistic {
         this.accuracy = ((this.goodKey * 100) / (this.goodKey + this.falseKey));
     }
 
-    public void ajoutStatsFinal(){
-        this.calculMPM(1);
+
+    public void ajoutStatsFinal(int nb){
+        this.calculMPM(nb);
         this.calculRegularity();
+    }
+    /*
+     * Reset les statistiques de la partie (quand on en relance une)
+     */
+    public void resetStat(){
+        this.MPM = -1; this.accuracy = -1.0; this.regularity = -1; this.goodKey = 0; this.falseKey = 0; this.nbrGoodWord = 0; this.nbrWord = 0;
     }
 
     @Override

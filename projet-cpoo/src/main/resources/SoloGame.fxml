@@ -88,7 +88,7 @@
                         <Font name="Comic Sans MS" size="19.0" />
                      </font>
                   </Text>
-                  <Button fx:id="start" layoutX="33.0" layoutY="301.0" mnemonicParsing="false" onAction="#startGame" prefHeight="45.0" prefWidth="55.0" styleClass="start" stylesheets="@basic.css" text="Start">
+                  <Button fx:id="start" layoutX="23.0" layoutY="308.0" mnemonicParsing="false" onAction="#startGame" prefHeight="48.0" prefWidth="65.0" styleClass="start" stylesheets="@basic.css" text="Start">
                      <font>
                         <Font name="Comic Sans MS" size="16.0" />
                      </font></Button>
