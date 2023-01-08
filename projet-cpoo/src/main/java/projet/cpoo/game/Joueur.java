@@ -7,6 +7,8 @@ public class Joueur {
     private Tampon listWord;
     private Statistic stat;
     private int life = 10;
+    private long tempsDernierChar;
+    
 
 
     public Joueur(String nom){
@@ -43,8 +45,20 @@ public class Joueur {
         this.listWord.addWord();
     }
 
+    public void changeDernierTemps(long t){
+        this.tempsDernierChar = t;
+    }
+
+    public long getLastTime(){
+        return this.tempsDernierChar;
+    }
+
     //Ajout aux statistiques les valeurs après avoir modifié un mot
-    public void ajoutStatsValidation(char[]tc,int nb){
+    public void ajoutStatsValidation(String tc,int nb){
         this.stat.ajoutStatsValidation(tc,nb);
+    }
+
+    public String affichageStats(){
+        return this.stat.toString();
     }
 }

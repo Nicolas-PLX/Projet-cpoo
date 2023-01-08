@@ -24,7 +24,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Text fill="#defbff" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="DyctaloGame" textAlignment="CENTER" GridPane.rowIndex="1">
+            <Text fill="#defbff" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="DactyloGame" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Comic Sans MS" size="53.0" />
                </font>
@@ -39,7 +39,7 @@
                <graphic>
                   <ImageView accessibleRole="BUTTON" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Continuer.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -47,14 +47,6 @@
                   <Insets left="215.0" />
                </GridPane.margin>
             </Button>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Continue" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="275.0" top="10.0" />
-               </GridPane.margin>
-            </Text>
          </children>
       </GridPane>
    </center>

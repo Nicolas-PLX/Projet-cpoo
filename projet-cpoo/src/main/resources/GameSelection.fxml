@@ -10,9 +10,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppControler">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.cpoo.main.AppControler">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -20,14 +19,13 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="pseudo" alignment="CENTER" promptText="Pseudo" GridPane.rowIndex="1">
+            <TextField fx:id="pseudo" alignment="CENTER" promptText="Enter your name" styleClass="text_zone" stylesheets="@basic.css">
                <GridPane.margin>
-                  <Insets left="100.0" right="100.0" />
+                  <Insets left="120.0" right="120.0" />
                </GridPane.margin>
                <font>
                   <Font name="Comic Sans MS" size="20.0" />
@@ -36,22 +34,22 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#soloMode" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#soloMode" GridPane.rowIndex="1">
                <font>
                   <Font name="Comic Sans MS" size="13.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="215.0" />
+                  <Insets left="230.0" />
                </GridPane.margin>
                <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="124.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Solo.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button disable="true" mnemonicParsing="false" onAction="#multiMode" GridPane.rowIndex="3">
+            <Button disable="true" mnemonicParsing="false" onAction="#multiMode" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="215.0" />
                </GridPane.margin>
@@ -61,43 +59,23 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Multiplayer.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@ressources/retour.png" />
-               </image>
+            <Button mnemonicParsing="false" onAction="#showMenu">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ressources/retour.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
                <GridPane.margin>
-                  <Insets left="10.0" />
+                  <Insets bottom="80.0" />
                </GridPane.margin>
-            </ImageView>
-            <Text fill="#defbff" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose your name">
-               <font>
-                  <Font name="Comic Sans MS" size="25.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="200.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Solo" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="285.0" top="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Multiplayer" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="265.0" top="10.0" />
-               </GridPane.margin>
-            </Text>
+            </Button>
          </children>
       </GridPane>
    </center>

@@ -4,8 +4,8 @@
 }
 
 .background {
-    background-color: #8eb3e7;
-    -fx-background-color : #8eb3e7;
+    background-image : url("ressources/background2.jpg");
+    -fx-background-image : url("ressources/background2.jpg");
 }
 
 .button {
@@ -13,4 +13,24 @@
     -fx-background-color: transparent;
     border-color: transparent;
     -fx-border-color: transparent;
+}
+
+.text_zone {
+    background-color : #defbff;
+    -fx-background-color: #defbff;
+    border-color: transparent;
+    -fx-border-color: transparent;
+    color : #537ef5;
+    -fx-text-fill: #537ef5;
+    -fx-prompt-text-fill : #6f97f2;
+}
+
+.start {
+    background-color : #defbff;
+    -fx-background-color: #defbff;
+    border-color: transparent;
+    -fx-border-color: transparent;
+    color : #537ef5;
+    -fx-text-fill: #537ef5;
+    -fx-prompt-text-fill : #6f97f2;
 }

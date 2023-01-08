@@ -1,131 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AppControler">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@basic.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.cpoo.main.AppControler">
    <center>
-      <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#showDescription" prefHeight="136.0" prefWidth="131.0" stylesheets="@basic.css" textAlignment="CENTER" textOverrun="CLIP" GridPane.rowIndex="1">
+            <Text fill="#defbff" layoutX="233.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu">
                <font>
-                  <Font name="Comic Sans MS" size="13.0" />
+                  <Font name="Comic Sans MS" size="53.0" />
                </font>
-               <GridPane.margin>
-                  <Insets left="215.0" />
-               </GridPane.margin>
-               <graphic>
-                  <ImageView fitHeight="150.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@ressources/cloud.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#exit" textAlignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="215.0" />
-               </GridPane.margin>
+            </Text>
+            <Button layoutX="326.0" layoutY="248.0" mnemonicParsing="false" onAction="#exit">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Quitter.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#startNormalGame" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="215.0" />
-               </GridPane.margin>
+            <Button layoutX="115.0" layoutY="250.0" mnemonicParsing="false" onAction="#showDescription">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Règle.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#startChallenge" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="215.0" />
-               </GridPane.margin>
+            <Button layoutX="324.0" layoutY="73.0" mnemonicParsing="false" onAction="#startChallenge">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@ressources/cloud.png" />
+                        <Image url="@ressources/Challenge.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Text fill="#defbff" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu">
-               <font>
-                  <Font name="Comic Sans MS" size="51.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="235.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="265.0" top="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Normal" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="280.0" top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Challenge" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="275.0" top="10.0" />
-               </GridPane.margin>
-            </Text>
-            <Text fill="#8eb3e7" strokeType="OUTSIDE" strokeWidth="0.0" text="Quitter" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets left="280.0" top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Comic Sans MS" size="13.0" />
-               </font>
-            </Text>
+            <Button layoutX="113.0" layoutY="74.0" mnemonicParsing="false" onAction="#startNormalGame">
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@ressources/Normal.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
-      </GridPane>
+      </AnchorPane>
    </center>
 </BorderPane>

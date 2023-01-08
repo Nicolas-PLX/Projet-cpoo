@@ -4,7 +4,6 @@ package projet.cpoo.main;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.net.URL;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,10 +12,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import projet.cpoo.game.Game;
 
-public class App extends Application {
+
+public final class App extends Application {
 
     private static Stage primaryStage;
+    private static Model model = new Model();
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -38,7 +40,6 @@ public class App extends Application {
         Scene scene = new Scene(parent);
         scene.getStylesheets().add(App.class.getResource("/basic.css").toExternalForm());
         primaryStage = (Stage) node.getScene().getWindow();
-        primaryStage.hide();
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
@@ -47,8 +48,13 @@ public class App extends Application {
     protected static void exit() {
         Platform.exit();
     }
+
     
     public static void main(String[] args) throws IOException{
         launch(args);
+       Game g = Game.newGameModeGame("pio", 1, 1);
+       //System.out.println("blabla".compareTo("blibli"))
+       
+
     }
 }

@@ -78,14 +78,17 @@ public class Tampon {
 
     public void motValideGame(){
         this.removeWord();
+        if (this.tampon.size() < 7){
+            this.addWord();
+        }
     }
 
     //Fonction qui va vérifié que le mot est correctement écrit. renvoie le nombre eventuel de fautes, 0 sinon
     //Devrait prendre un tableau de char, qui stockera les caractères que le joueur écrira pour écrire son mot
-    public int checkMotValide(char[] tc){
+    public int checkMotValide(String s){
         int compteur_bad_char = 0;
-        for (int i = 0; i < tc.length;i++){
-            if (!checkGoodChar(i, tc[i])){
+        for (int i = 0; i < s.length();i++){
+            if (!checkGoodChar(i, s.charAt(i))){
                 compteur_bad_char++;
             }
         }
@@ -95,6 +98,7 @@ public class Tampon {
     //Regarde si la lettre tapé est correcte ou non.
     public boolean checkGoodChar(int index, char c){
         String s = this.getTampon().get(0);
+        if (s.length() <= index){return false;}
         if(s.charAt(index) == c){
             return true;
         }
@@ -106,9 +110,10 @@ public class Tampon {
     public String affichage_first_words(){
         String res = "";
         for (int i = 0; i < 15;i++){
-            res += res + " " + this.tampon.get(i);
+            res += this.tampon.get(i) + " ";
         }
         return res;
     }
+
     
 }

@@ -6,20 +6,21 @@ public class Game {
     
     private double vitesse; //En seconde : le nombre de seconde qu'il faudra pour ajouter un mot.
     private double frequence_bonus;
-    private CustomTimer timer;
     private GameMode gameMode;
     private int niveau;
     private int nbWord;
+    private boolean withTimer;
     private Joueur joueur;
         // [...] A rajouter éventuellement, en tout cas on passera par un builder comme il est FORTEMENT sous entendu ...
 
     private Game(GameBuilder b){
         this.vitesse = b.vitesse;
         this.frequence_bonus = b.frequence_bonus;
-        this.timer = b.timer;
         this.gameMode = b.gameMode;
         this.niveau = b.niveau;
         this.joueur = b.joueur;
+        this.withTimer = b.withTimer;
+        this.nbWord = b.nbWordToWrite;
     }
 
     public static GameBuilder builder(){
@@ -33,12 +34,31 @@ public class Game {
         return this.gameMode;
     }
 
+    public double getVitesse(){
+        return this.vitesse;
+    }
+    
+    public boolean withTimer(){
+        return this.withTimer;
+    }
+
+    public int getNbWord(){
+        return this.nbWord;
+    }
+
+    public void addNbWord(){
+        this.nbWord++;
+    }
+
+    public void remNbWord(){
+        this.nbWord--;
+    }
+
     public static Game newNormalGame(int duration, String pseudo, int nbWord){
         GameBuilder gb = Game.builder();
         gb = gb.frequence_bonus(0)
         .gameMode(GameMode.Normal)
         .vitesse(0)
-        .timer(new CustomTimer(duration))
         .joueur(new Joueur(pseudo))
         .nbWord(nbWord)
         .niveau(0);
@@ -50,7 +70,6 @@ public class Game {
         gb = gb.frequence_bonus(frequence_bonus)
         .gameMode(GameMode.Jeu)
         .vitesse(speed)
-        //.timer(null)
         .joueur(new Joueur(pseudo))
         .niveau(1);
         return gb.build();
@@ -68,56 +87,29 @@ public class Game {
         if (this.gameMode == GameMode.Normal){return;}
         this.niveau++;
         this.vitesse = 3 * Math.pow(0.9, this.niveau);
-        this.timer.timerRestart();
     }
 
-    public void modificationTimer(int duration){
-        this.timer.timerRestart();
-    }
 
     //Fonction qui va validé un mot, si on est dans le mode jeu alors on va retirer des vies également
-    public void validationWord(char[] tc){
+    public void validationWord(String tc){
         int nb = this.joueur.getListWord().checkMotValide(tc);
         this.joueur.ajoutStatsValidation(tc,nb);
         if (this.gameMode == GameMode.Jeu){
             this.joueur.changeLife(Math.negateExact(nb));
-            System.out.println("je vais ici");
             this.joueur.getListWord().motValideGame();
         } else {
             this.joueur.getListWord().motValideNormal();
         }
-    }
-
-
-
-    //fonction qui va lancer une partie
-    public static void startNewGame(int duration, int nbWord, String pseudo, int speed, int frequence_bonus, GameMode gm){
-        if (gm == GameMode.Jeu){
-            Game game = Game.newGameModeGame(pseudo, speed, frequence_bonus);
-            //TODO a finir : le mode jeu se fini par rapport aux nombres de vie
-            while(game.joueur.getLife() > 0){
-
-            }
-        } else if (gm == GameMode.Normal){
-            Game game = Game.newNormalGame(duration, pseudo, nbWord);
-            Timer chrono = new Timer();
-            chrono.schedule(game.timer, 1000,game.timer.getDuration());
-            while(game.timer.getState() == true){
-                System.out.println(game.timer.getDuration());
-                Scanner sc = new Scanner(System.in);
-                System.out.println(sc.nextLine());
-            }
-        }
-    }
+    }    
 
     public static class GameBuilder{
         private double vitesse;
         private double frequence_bonus;
-        private CustomTimer timer;
         private GameMode gameMode;
-        private int niveau;
+        private int niveau = 1;
         private Joueur joueur;
-        private int nbWord;
+        private int nbWordToWrite;
+        private boolean withTimer;
 
         // [...]
 
@@ -137,6 +129,11 @@ public class Game {
             return this;
         }
 
+        public GameBuilder withTimer(boolean b){
+            this.withTimer = b;
+            return this;
+        }
+
         public GameBuilder joueur(Joueur j){
             this.joueur = j;
             return this;
@@ -147,10 +144,6 @@ public class Game {
             return this;
         }
         
-        public GameBuilder timer(CustomTimer t){
-            this.timer = t;
-            return this;
-        }
 
         public GameBuilder niveau(int n){
             this.niveau = n;
@@ -158,7 +151,7 @@ public class Game {
         }
 
         public GameBuilder nbWord(int n){
-            this.nbWord = n;
+            this.nbWordToWrite = n;
             return this;
         }
 
@@ -167,12 +160,11 @@ public class Game {
         //TODO : Fonction qui va vérifier si les paramètres sont adéquat.
         public boolean verification(){
             if (this.gameMode == GameMode.Normal){
-                if (this.niveau > 0 || this.vitesse > 0 || this.frequence_bonus > 0){
+                if (this.niveau > 1 || this.vitesse > 0 || this.frequence_bonus > 0){
                     return false;
                 }
             } else if (this.gameMode == GameMode.Jeu){
-                if (this.nbWord > 0){
-                
+                if (this.nbWordToWrite > 0 || this.withTimer == true){
                     return false;
                 }
             }

@@ -13,11 +13,18 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
+compileJava.options.encoding = 'UTF-8'
+
+
 group 'projet.cpoo'
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
 javafx {
@@ -47,8 +54,8 @@ tasks.named('run') {
      dependsOn build
     group = "Execution"
     description = "Description"
+    systemProperty "file.encoding", "utf-8"
     classpath = sourceSets.main.runtimeClasspath
-    //main = 'projet.cpoo.main.Main'
     main = 'projet.cpoo.main.App'
     standardInput = System.in
 }
